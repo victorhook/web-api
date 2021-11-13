@@ -1,17 +1,20 @@
+from posixpath import join
 from flask import Flask, jsonify
 from flask_cors import CORS
 
 import os
 import importlib
 from pathlib import Path
+import sys
 
-APP_DIR        = Path(__file__).parent.joinpath('apps')
+BAS_DIR        = Path(__file__).parent
+APP_DIR        = BAS_DIR.joinpath('apps')
+CORE_DIR       = BAS_DIR.joinpath('core')
 APP_NAME       = 'main'
 BLUEPRINT_NAME = 'api'
 
 app = Flask(__name__)
 CORS(app)
-
 
 def get_app_dirs():
     app_paths = [os.path.join(APP_DIR, app) for app in os.listdir(APP_DIR)]
@@ -43,6 +46,9 @@ def register_apps():
 
     print(f'Registered total of {len(registered_apps)} apps')
 
+
+# Add core lib to path
+sys.path.append(str(CORE_DIR))
 
 # Register all found apps.
 register_apps()

@@ -1,0 +1,3 @@
+#/bin/bash
+
+ssh git@142.93.164.184 'cd ~/web-api && git pull --rebase origin'
